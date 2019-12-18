@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
 import axios from 'axios';
 
 const MovieList = props => {
@@ -7,6 +8,7 @@ const MovieList = props => {
     const getMovies = () => {
       axios
         .get('http://localhost:5000/api/movies')
+        //console.log('http://localhost:5000/api/movies')
         .then(response => {
           setMovies(response.data);
         })
@@ -30,7 +32,8 @@ const MovieList = props => {
 function MovieDetails({ movie }) {
   const { title, director, metascore, stars } = movie;
   return (
-    <div className="movie-card">
+    <div class="movie-card">
+    <Link to = {`/movies/${movie.id}`} >
       <h2>{title}</h2>
       <div className="movie-director">
         Director: <em>{director}</em>
@@ -45,6 +48,7 @@ function MovieDetails({ movie }) {
           {star}
         </div>
       ))}
+    </Link>
     </div>
   );
 }
